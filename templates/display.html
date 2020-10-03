@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>SwItCh On</title>
+</head>
+
+<body>
+	{% if msg == "SUCCESS" %}
+	<h3>You have successfully registered on SwItCh On </h3>
+	<h4>Thank you for being a member</h4>
+	{% elif msg == "FAIL" %}
+	<h3>There is problem in registration</h3>
+	<h4>Possible reasons for failure</h4>
+	<ul>
+		<li>Username already registered. Try with new username</li>
+		<li>Email provided is not valid</li>
+		<li>Server initiation failure. Try again</li>
+		<li>Internet connectivity is poor</li>
+	</ul>
+	{% endif %}
+</body>

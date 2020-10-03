@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>SwItCh On</title>
+<script> 
+          
+            // Function to check Whether both passwords 
+            // is same or not. 
+            function check(form) 
+			{ 
+                password1 = form.password.value; 
+                password2 = form.conpassword.value; 
+  
+				if (password1 != password2) 
+				{ 
+						alert ("\nPassword did not match: Please try again...") 
+						return false; 
+				}  
+				else
+				{ 
+					 
+						return true; 
+				} 
+            } 
+</script> 
+</head>
+<body>
+<h1>SwItCh ON Portal</h1>
+	{%if err == "H" %}
+	<h4>Hello</h4>
+	{% elif err == "WRONG" %}
+	<h4>Wrong Credentials!! Try Again</h4>
+	{% elif err == "UNREGISTERED" %}
+	<h4>Username not registered with us!!</h4>
+	{% elif err == "SUCCESS" %}
+	<h4>You have successfully registered on SwItCh On.Login with credential</h4>
+	{% elif err == "FAIL" %}
+	<h4>Username already exists. Try again with another username</h4>
+	{% elif err == "LOGOUT" %}
+	<h4>Logged out successfully. Thank You</h4>
+	{% endif %}
+	<form action="{{url_for('validate')}}"method="POST">
+		<fieldset>
+		<legend><h3>Member Login</h3></legend>
+		<label for="username">Username</label><br />
+		<input type="text" name="username"required="required" size="30"/></title><br />
+		<br />
+		<label for="password">Password</label><br />
+		<input type="password" name="password"required="required" size="30" /><br />
+		<br />
+		<input type="submit" value="Login" />
+		</fieldset>
+	</form>
+	<br />
+	<form action ="{{url_for('register')}}"method="POST" onSubmit="return check(this)">
+		<fieldset>
+		<legend><h3>Not a Member, Register here</h3></legend>
+		<label for="name">Name</label><br />
+		<input type="text" name="name"required="required" size="30"/></title><br />
+		<br />
+		<label for="mail">email</label><br />
+		<input type="email" name="mail"required="required" size="30"/></title><br />
+		<br />
+		<label for="username">Username</label><br />
+		<input type="text" name="username"required="required" size="30"/></title><br />
+		<br />
+		<label for="password">Password</label><br />
+		<input type="password" name="password"required="required" size="30"/></title><br />
+		<br />
+		<label for="conpassword">Confirm Password</label><br />
+		<input type="password" name="conpassword"required="required" size="30"/></title><br />
+		<br />
+		<input type="submit" value="Register" />
+		</fieldset>
+	</form>
+
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+	<title>SwItCh On Dashboard</title>
+</head>
+
+<body>
+	<h1>SwItCh On Dashboard</h1>
+	<h3><i>Welcome {{name}}</i></h3>
+	<form action="{{url_for('logout')}}"method="POST">
+		<input type="submit" value="LOG OUT"/>
+	</form>
+	<br />
+	<button onClick="window.location.reload();">Refresh</button>
+	{%if msg == "SUCCESS" %}
+	<h4>Device added successfully.</h4>
+	{% elif msg == "FAIL" %}
+	<h4>Failed!! device is not added, check device ID</h4>
+	{% elif msg == "WRONG" %}
+	<h4>Incorrect password</h4>
+	{% elif msg == "DBFAIL" %}
+	<h4>Bad request</h4>
+	{% endif %}
+	<hr/>
+	<table border = 2>
+         <thead>
+            <td>ID</td>
+            <td>DEVICE NAME</td>
+            <td>STATUS</td>
+            <td>OPERATION</td>
+         </thead>
+         
+         {% for row in dev_data %}
+            <tr>
+               <td>{{row["devid"]}}</td>
+               <td>{{row["devname"]}}</td>
+               <td> {{ row["status"]}}</td>
+               <td>{{row["opt"]}}</td>	
+            </tr>
+         {% endfor %}
+      </table>
+	  {% for row in dev_data %}
+		<fieldset>
+		<legend><h4>{{row["devname"]}}</h4></legend>
+		<p><b>DEVICE ID:</b>{{row["devid"]}}</p>
+		{% if row["status"]==0 %}
+		<p><b>STATUS:</b>Offline</p>
+		{% else %}
+		<p><b>STATUS:</b>Online</p>
+		{% endif %}
+		{% if row["opt"]==0 %}
+		<p><b>STATUS:</b>Off</p>
+		{% else %}
+		<p><b>STATUS:</b>On</p>
+		{% endif %}
+		<form action="{{url_for('control')}}"method="POST">
+			<input type="hidden"name="dev_id" value={{row["devid"]}}>
+			<input type="submit" value="TOGGLE"/>
+		</form>
+		</fieldset>
+	  {% endfor %}
+	  <hr/>
+	  <form action ="{{url_for('ADDdevice')}}"method="POST">
+		<fieldset>
+		<legend><h3>Bought a new device,add here</h3></legend>
+		<input type="text" name="dev_id"required="required"placeholder="Device ID"size="30"/></title><br />
+		<br />
+		<input type="text" name="dev_name"required="required"placeholder="Device Name" size="30"/></title><br />
+		<br />
+		<input type="password" name="password"required="required"placeholder="Account password" size="30"/></title><br />
+		<input type="hidden"name="userid" value={{user}}>
+		<br />
+		<input type="submit" value="Register" />
+		</fieldset>
+	</form>
+</body>
+
